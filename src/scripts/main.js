@@ -1,7 +1,7 @@
 import * as L from '../../lib/leaflet/leaflet-src.esm.js';
 
 //Map Stuff
-const map = L.map('birdMap').setView([14.599512,120.984222],7);
+const map = L.map('birdMap').setView([14.599512,120.984222],5);
 const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const mapTiles = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const tiles = L.tileLayer(mapTiles, {attribution});
@@ -35,7 +35,7 @@ fetch(api_link_reg, requestOptions)
     })
     .catch(function(error) {
         console.error('COULD NOT RETRIEVE REGION DATA');
-    })
+    });
 
 fetch(api_link_main, requestOptions)
     .then(function(response) {
@@ -49,12 +49,40 @@ fetch(api_link_main, requestOptions)
                 // console.log(json[0]); //Test Data
 
                 //TODO: Fix Same Marker Location
-                for (let i = 0; i < 10; i++) {
+                // for (let i = 0; i < 10; i++) {
+                //     markers.push([
+                //         json[i].lat,
+                //         json[i].lng,
+                //         '<center>'+json[i].comName+'</center><br><center>'+json[i].sciName+'</center>',
+                //         json[i].locName
+                //     ]);
+                    
+                //     let lat = markers[i][0];
+                //     let lng = markers[i][1];
+                //     let popupText = markers[i][2];
+
+                //     let marker_loc = new L.LatLng(lat, lng);
+                //     let marker = new L.Marker(marker_loc);
+                //     map.addLayer(marker);
+
+                //     marker.bindPopup(popupText);
+                //     console.log('Loop '+(i+1));
+                //     console.log(markers);
+                // }
+                let prev = '';
+                let count = 0;
+                for (let i = 0; i < 100; i++) {
+                    if (prev==json[i+count].locName) {
+                        i--;
+                        count+=1;
+                        continue;
+                    }
+
                     markers.push([
-                        json[i].lat,
-                        json[i].lng,
-                        '<center>'+json[i].comName+'</center><br><center>'+json[i].sciName+'</center>',
-                        json[i].locName
+                        json[i+count].lat,
+                        json[i+count].lng,
+                        '<center>'+json[i+count].comName+'</center><br><center>'+json[i].sciName+'</center>',
+                        json[i+count].locName
                     ]);
                     
                     let lat = markers[i][0];
@@ -66,14 +94,10 @@ fetch(api_link_main, requestOptions)
                     map.addLayer(marker);
 
                     marker.bindPopup(popupText);
-                    console.log('Loop '+(i+1));
-                    console.log(markers);
+                    prev = json[i+count].locName;
                 }
             })
     })
     .catch(function(error) {
         console.error('COULD NOT RETRIEVE QUERY');
     });
-
-
-
