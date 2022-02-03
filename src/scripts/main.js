@@ -17,6 +17,7 @@ let markers = [];
 //API Stuff
 let api_link_main = 'https://api.ebird.org/v2/data/obs/PH/recent?back=30';
 let api_link_reg = 'https://api.ebird.org/v2/ref/region/info/PH';
+let bird_link = 'https://ebird.org/species/';
 
 let myHeaders = new Headers();
 myHeaders.append("X-eBirdApiToken", "1qlibos60jhf");
@@ -64,7 +65,7 @@ fetch(api_link_main, requestOptions)
                     bird_array.push([
                         json[i+count].lat,
                         json[i+count].lng,
-                        '<center>'+json[i+count].comName+'</center><br><center>'+json[i].sciName+'</center>',
+                        '<center class=\'common-name\'>'+json[i+count].comName+'</center><center class=\'sci-name\'>'+json[i].sciName+'</center><center><a href='+bird_link+json[i].speciesCode+' target=\'_blank\'>Learn More</a></center>',
                         json[i+count].locName,
                         json[i+count].comName,
                         json[i+count].sciName

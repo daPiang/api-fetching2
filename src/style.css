@@ -329,3 +329,12 @@ footer {
   font-size: 20px;
   margin: 0 10px;
 }
+
+.common-name {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.2vw;
+}
+.sci-name {
+  font-style: italic;
+}
