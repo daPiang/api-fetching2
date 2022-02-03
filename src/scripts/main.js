@@ -89,7 +89,7 @@ fetch(api_link_main, requestOptions)
         console.error('COULD NOT RETRIEVE QUERY');
     });
 
-EventListeners
+//EventListeners
 let button_count = 0;
 
 document.getElementById('buttonNEXT').addEventListener("click", function() {
