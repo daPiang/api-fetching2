@@ -55,7 +55,7 @@ fetch(api_link_main, requestOptions)
 
                 let prev = '';
                 let count = 0;
-                for (let i = 0; i < 50; i++) {
+                for (let i = 0; i < 100; i++) {
                     if (prev==json[i+count].locName) {
                         i--;
                         count+=1;
@@ -93,7 +93,7 @@ fetch(api_link_main, requestOptions)
 let button_count = 0;
 
 document.getElementById('buttonNEXT').addEventListener("click", function() {
-    if (button_count==49) {
+    if (button_count==99) {
         button_count=0;
     }
     map.setView([bird_array[button_count][0],bird_array[button_count][1]],15);
@@ -103,7 +103,7 @@ document.getElementById('buttonNEXT').addEventListener("click", function() {
 
 document.getElementById('buttonPREV').addEventListener("click", function() {
     if (button_count==-1) {
-        button_count=49;
+        button_count=99;
     }
     map.setView([bird_array[button_count][0],bird_array[button_count][1]],15);
     markers[button_count].openPopup();
