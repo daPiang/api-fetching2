@@ -89,14 +89,23 @@ fetch(api_link_main, requestOptions)
         console.error('COULD NOT RETRIEVE QUERY');
     });
 
-//EventListeners
-// let button_count = 0;
+EventListeners
+let button_count = 0;
 
-// document.getElementById('button').addEventListener("click", function() {
-//     if (button_count==49) {
-//         button_count=0;
-//     }
-//     map.setView([bird_array[button_count][0],bird_array[button_count][1]],15);
-//     markers[button_count].openPopup();
-//     button_count++;
-// });
+document.getElementById('buttonNEXT').addEventListener("click", function() {
+    if (button_count==49) {
+        button_count=0;
+    }
+    map.setView([bird_array[button_count][0],bird_array[button_count][1]],15);
+    markers[button_count].openPopup();
+    button_count++;
+});
+
+document.getElementById('buttonPREV').addEventListener("click", function() {
+    if (button_count==-1) {
+        button_count=49;
+    }
+    map.setView([bird_array[button_count][0],bird_array[button_count][1]],15);
+    markers[button_count].openPopup();
+    button_count--;
+});
