@@ -333,8 +333,9 @@ footer {
 .common-name {
   font-style: normal;
   font-weight: 700;
-  font-size: 1.2vw;
+  font-size: 0.8vw;
 }
 .sci-name {
   font-style: italic;
+  font-size: 0.7vw;
 }
