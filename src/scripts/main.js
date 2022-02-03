@@ -1,12 +1,17 @@
 import * as L from '../../lib/leaflet/leaflet-src.esm.js';
 
 //Map Stuff
-const map = L.map('birdMap').setView([14.599512,120.984222],5);
+const map = L.map('birdMap', {
+    minZoom: 5
+});
+    map.setView([14.599512,120.984222],5);
+
 const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const mapTiles = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const tiles = L.tileLayer(mapTiles, {attribution});
-tiles.addTo(map);
+    tiles.addTo(map);
 
+let bird_array = [];
 let markers = [];
 
 //API Stuff
@@ -46,54 +51,35 @@ fetch(api_link_main, requestOptions)
         response.json()
             .then(function(json) {
                 console.log(json); //Our Actual Data
-                // console.log(json[0]); //Test Data
 
-                //TODO: Fix Same Marker Location
-                // for (let i = 0; i < 10; i++) {
-                //     markers.push([
-                //         json[i].lat,
-                //         json[i].lng,
-                //         '<center>'+json[i].comName+'</center><br><center>'+json[i].sciName+'</center>',
-                //         json[i].locName
-                //     ]);
-                    
-                //     let lat = markers[i][0];
-                //     let lng = markers[i][1];
-                //     let popupText = markers[i][2];
-
-                //     let marker_loc = new L.LatLng(lat, lng);
-                //     let marker = new L.Marker(marker_loc);
-                //     map.addLayer(marker);
-
-                //     marker.bindPopup(popupText);
-                //     console.log('Loop '+(i+1));
-                //     console.log(markers);
-                // }
                 let prev = '';
                 let count = 0;
-                for (let i = 0; i < 100; i++) {
+                for (let i = 0; i < 50; i++) {
                     if (prev==json[i+count].locName) {
                         i--;
                         count+=1;
                         continue;
                     }
 
-                    markers.push([
+                    bird_array.push([
                         json[i+count].lat,
                         json[i+count].lng,
                         '<center>'+json[i+count].comName+'</center><br><center>'+json[i].sciName+'</center>',
-                        json[i+count].locName
+                        json[i+count].locName,
+                        json[i+count].comName,
+                        json[i+count].sciName
                     ]);
-                    
-                    let lat = markers[i][0];
-                    let lng = markers[i][1];
-                    let popupText = markers[i][2];
+
+                    let lat = bird_array[i][0];
+                    let lng = bird_array[i][1];
+                    let popupText = bird_array[i][2];
 
                     let marker_loc = new L.LatLng(lat, lng);
                     let marker = new L.Marker(marker_loc);
                     map.addLayer(marker);
 
                     marker.bindPopup(popupText);
+                    markers.push(marker);
                     prev = json[i+count].locName;
                 }
             })
@@ -101,3 +87,15 @@ fetch(api_link_main, requestOptions)
     .catch(function(error) {
         console.error('COULD NOT RETRIEVE QUERY');
     });
+
+//EventListeners
+// let button_count = 0;
+
+// document.getElementById('button').addEventListener("click", function() {
+//     if (button_count==49) {
+//         button_count=0;
+//     }
+//     map.setView([bird_array[button_count][0],bird_array[button_count][1]],15);
+//     markers[button_count].openPopup();
+//     button_count++;
+// });
