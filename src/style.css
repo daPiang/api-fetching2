@@ -198,7 +198,7 @@ nav a:hover {
   height: 0;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
-  z-index: 99;
+  z-index: 0;
   opacity: 0;
 }
 
@@ -333,9 +333,11 @@ footer {
 .common-name {
   font-style: normal;
   font-weight: 700;
-  font-size: 0.8vw;
+  font-size: 1rem;
 }
 .sci-name {
   font-style: italic;
-  font-size: 0.7vw;
+  font-size: 0.8rem;
+}
+.map-button {
 }
